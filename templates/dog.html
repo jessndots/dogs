@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 
+{{dog.name}}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid m-5">
+  <h1>{{dog.name}}</h1>
+  <p>{{dog.age}}  |  {{dog.gender}}  |  {{format_breeds(dog)}}</p>
+  <p>{{dog.contact.address.city}}, {{dog.contact.address.state}}</p>
+  <div>
+    <form id="AddToFavorites" method="POST">{{ form.hidden_tag() }} <!--automatically adds type=hidden form fields -->
+			<button class="btn btn-primary" type="submit"><i class='{{"bi bi-heart-fill" if favorited else "bi bi-heart"}}'></i></button>
+    </form>
+  </div><br/>
+  <img src={{get_photo(dog)}} /><br/>
+  <div>
+    <h2>About</h2>
+    <p><strong>Size: </strong> {{dog.size}}</p>
+    <p><strong>Coat: </strong> {{dog.coat}}</p>
+    <p><strong>House-Trained: </strong> {% if dog.attributes.house_trained == None %} Unknown {% endif %}{% if dog.attributes.house_trained != None %} {{dog.attributes.house_trained}} {% endif %} </p>
+    <p><strong>Special Needs: </strong> {% if dog.attributes.special_needs == None %} Unknown {% endif %}{% if dog.attributes.special_needs != None %} {{dog.attributes.special_needs}} {% endif %} </p>
+    <p><strong>Does Well With Dogs: </strong> {% if dog.environment.dogs == None %} Unknown {% endif %}{% if dog.environment.dogs != None %} {{dog.environment.dogs}} {% endif %} </p>
+    <p><strong>Does Well With Cats: </strong> {% if dog.environment.cats == None %} Unknown {% endif %}{% if dog.environment.cats != None %} {{dog.environment.cats}} {% endif %} </p>
+    <p><strong>Does Well With Children: </strong> {% if dog.environment.children == None %} Unknown {% endif %}{% if dog.environment.children != None %} {{dog.environment.children}} {% endif %} </p>
+  </div>
+  <div>
+    <h2>Contact</h2>
+    <p><strong>Email: </strong>{{dog.contact.email}}</p>
+    <p><strong>Phone: </strong>{{dog.contact.phone}}</p>
+  </div>
+
+</div>
+{% endblock %}

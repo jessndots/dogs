@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+Adoptable Dogs Near You
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid m-5">
+  <!-- make pretty -->
+  <h1>DOGS</h1>
+  <div class="d-flex flex-wrap ">
+    {% for dog in favorites %}
+    <div class="card border border-primary m-2" style="width: 15rem;">
+      <img src={{get_photo(dog)}} class="card-img-top" alt={{dog.name}}>
+      <div class="card-body">
+        <h5 class="card-title">{{dog.name}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{dog.contact.address.city}}, {{dog.contact.address.state}}</h6>
+        <p class="card-text">{{dog.description}}</p>
+      </div>
+      <a href={{get_dog_link(dog)}} class="stretched-link"></a>
+    </div><br>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

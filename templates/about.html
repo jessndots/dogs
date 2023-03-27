@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 
+About You
+{% endblock %}
+
+{% block content %}
+<div class="container-md p-5">
+  <h1>Tell us about yourself!</h1>
+  <p class="lead">There are some things we need to know about you in order to find you the most compatible pups in your area.</p>
+  {{ wtf.quick_form(form, button_map={'submit_button': 'primary'}) }}
+</div>
+{% endblock %}

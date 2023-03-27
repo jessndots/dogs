@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"></head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    {% if user %}
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">title</a>
+      <a class="nav-link" href="/dogs">Dogs Near You</a>
+      <a class="nav-link" href="/about">About You</a>
+      <a class="nav-link" href="/favorites">Favorite Dogs</a>
+      <a class="nav-link" href="/account">Account</a>
+      <a class="nav-link" href="/logout">Logout</a>
+    </div>
+    {% endif %}
+    {% if user==None %}
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">title</a>
+      <a class="nav-link" href="/login">Login</a>
+      <a class="nav-link" href="/signup">Sign Up</a>
+    </div>
+    {% endif %}
+  </nav>
+  <main >
+    {% block content %}{% endblock %}
+  </main>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

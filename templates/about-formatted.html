@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 
+About You
+{% endblock %}
+
+{% block content %}
+<div class="container-md p-5">
+  <h1>Tell us about yourself!</h1>
+  <p class="lead">There are some things we need to know about you in order to find you the most compatible pups in your area.</p>
+  <form class="form form-horizontal" method="post" role="form">
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Location
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          
+          <!-- Zip -->
+          <div class="form-floating form-control-sm mb-3 m-3">
+            <input type="text" class="form-control" id="zip" placeholder='Zip Code' >
+            <label for="zip">{{form.zip.label}}</label>
+            <div id="zip-help" class="form-text">
+              {{form.zip.description}}
+            </div>
+          </div>
+
+          <!-- Distance -->
+          <div class="row  m-3">
+            <div class="col form-floating form-control-sm mb-3">
+              <input type="text" class="form-control" id="floatingInput" placeholder={form.distance.label} value="100">
+              <label for="floatingInput">{{form.distance.label}}</label>
+              <div id="passwordHelpBlock" class="form-text">
+                {{form.distance.description}}
+              </div>
+            </div>
+            <div class="col card card-body mb-3 fs-">
+              <p>The further you are willing to travel, the more dogs you will have to choose from. </p>
+              <p>Things to consider:</p>
+              <ul>
+                <li>stress of longer trips on you and the dog</li>
+                <li>mode of transportation - some public modes of transportation may not allow dogs</li>
+                <li>monetary cost of travel - missed work, gas, plane/train tickets, meals, hotel</li>
+                <li>travel time - multi day trips may be necessary</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Accordion Item #2
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Accordion Item #3
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, hiddens="only") }}
+    
+
+
+
+    {{ wtf.form_field(form.size) }}
+    {{ wtf.form_field(form.size_priority) }}
+    {{ wtf.form_field(form.age) }}
+    {{ wtf.form_field(form.age_priority) }}
+    {{ wtf.form_field(form.good_with_children) }}
+    {{ wtf.form_field(form.children_priority) }}
+    {{ wtf.form_field(form.good_with_dogs) }}
+    {{ wtf.form_field(form.dogs_priority) }}
+    {{ wtf.form_field(form.good_with_cats) }}
+    {{ wtf.form_field(form.cats_priority) }}
+    {{ wtf.form_field(form.house_trained) }}
+    {{ wtf.form_field(form.house_trained_priority) }}
+    {{ wtf.form_field(form.sex) }}
+    {{ wtf.form_field(form.sex_priority) }}
+    {{ wtf.form_field(form.barking) }}
+    {{ wtf.form_field(form.barking_priority) }}
+    {{ wtf.form_field(form.energy) }}
+    {{ wtf.form_field(form.energy_priority) }}
+    {{ wtf.form_field(form.protectiveness) }}
+    {{ wtf.form_field(form.protectiveness_priority) }}
+    {{ wtf.form_field(form.shedding) }}
+    {{ wtf.form_field(form.shedding_priority) }}
+    {{ wtf.form_field(form.trainability) }}
+    {{ wtf.form_field(form.trainability_priority) }}
+  </form>
+</div>
+{% endblock %}

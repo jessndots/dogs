@@ -1,0 +1,63 @@
+from flask_wtf import FlaskForm
+from wtforms import StringField, IntegerField, BooleanField, RadioField, SelectMultipleField, SelectField, SubmitField, EmailField, PasswordField
+from wtforms.validators import InputRequired, Length, NumberRange, EqualTo
+
+class SignupForm(FlaskForm):
+  """Form for adding users"""
+  first_name = StringField('First Name', validators=[InputRequired(), Length(min=2, max=50, message='First name must be at least 2 characters and at most 50 characters.')])
+  last_name = StringField('Last Name', validators=[InputRequired(), Length(min=2, max=50, message='Last name must be at least 2 characters and at most 50 characters.')])
+  email = EmailField('Email Address', validators=[InputRequired(), Length(max=50, message='Email must be less than 50 characters.')])
+  password = PasswordField('Password', validators=[InputRequired(), EqualTo('confirm_pw', message='Passwords must match.'), Length(min=5, max=50, message='Password must be at least 5 characters and at most 50 characters.')])
+  confirm_pw = PasswordField('Confirm Password', validators=[InputRequired()])
+  submit_button = SubmitField('Sign Up')
+
+class EditAccountForm(FlaskForm):
+  """Form for adding users"""
+  first_name = StringField('First Name', validators=[InputRequired(), Length(min=2, max=50, message='First name must be at least 2 characters and at most 50 characters.')])
+  last_name = StringField('Last Name', validators=[InputRequired(), Length(min=2, max=50, message='Last name must be at least 2 characters and at most 50 characters.')])
+  email = EmailField('Email Address', validators=[InputRequired(), Length(max=50, message='Email must be less than 50 characters.')])
+  pw = PasswordField('Change Password', validators=[EqualTo('confirm_pw', message='Passwords must match.'), Length(max=50, message='Password must be at least 5 characters and at most 50 characters.')])
+  confirm_pw = PasswordField('Confirm Password')
+  submit_button = SubmitField('Save Changes')
+
+class LoginForm(FlaskForm):
+  """Login form"""
+  email = EmailField('Email Address', validators=[InputRequired()])
+  password = PasswordField('Password', validators=[InputRequired()])
+  submit_button = SubmitField('Log in')
+ 
+class AddToFavorites(FlaskForm):
+  """Form to add dog to favorites"""
+  submit_button = SubmitField('Favorite')
+
+
+class AboutForm(FlaskForm):
+  """Form for lifestyle and preferences of user"""
+
+  zip = StringField('Zip Code', validators=[InputRequired(), Length(min=5, max=5, message="Input must be a valid 5 digit US zip/postal code.")], description="5 digit US postal code")
+  distance = IntegerField(label='Distance (in miles)', validators=[NumberRange(min=0, max=500)], description="Distance (in miles) from the zip code entered in the previous field. Maximum distance of 500 miles.")
+  size = SelectMultipleField(label='What size dog would you prefer? Select all that apply.', choices=[('small','small'), ('medium','medium'), ('large','large'), ('xlarge', 'extra large')], description="Things to consider: home renting restrictions, future plans to rent your home - apartments and rentals are much more likely to allow smaller dogs, size of your home, your preference for being able to hold your dog easily, the cost of dog food, your strength - walking a large dog may be more difficult if they pull, your tolerance for dogs jumping on you - the larger the dog the more unpleasant jumping may be, age of people you plan to have your dog around - a large dog could easily knock over small children or elderly people and cause injury")
+  size_priority = RadioField(label="How important is it that your dog meet the size criteria selected above?", choices=[(1, "1 - not very important"), (2,"2"), (3, "3"), (4, "4"), (5, "5 - requirement, exclude dogs that do not meet this criteria")], description="Things to consider: dogs that are not yet fully grown may end up being smaller or larger than you prefer, if you choose 5 you might miss out on some dogs that may otherwise be a perfect fit.")
+  age = SelectMultipleField(label='What age would you prefer your dog be? Select all that apply.', choices=['baby', 'young', 'adult', 'senior'], description="Things to consider: the remaining lifespan of the dog - a puppy is a much longer commitment than a senior dog, how much training you can commit to - puppies require a lot of time and energy to be a well-adjusted and properly socialized adult, older dogs might have undesirable habits that may be difficult to train out of them, cost of pet insurance, cost of vet visits and medications - older dogs often require more vet visits or have health conditions, preferred energy level of the dog - energy goes down as dogs age")
+  age_priority = RadioField(label="How important is it that your dog meet the age criteria selected above?", choices=[(1, "1 - not very important"), (2,"2"), (3, "3"), (4, "4"), (5, "5 - requirement, exclude dogs that do not meet this criteria")], description="Things to consider: dogs that are not yet fully grown may end up being smaller or larger than you prefer, if you choose 5 you might miss out on some dogs that may otherwise be a perfect fit.")
+  good_with_children = BooleanField(label='Good With Children', default=False, description="Do you need your dog to do well with children? If yes, set to checked. Things to consider: your own household, family and friends with children, future plans to have children, possibility of future partners or roommates with children, plans to take dog to off-leash parks where children may be present")
+  children_priority = RadioField(label='How important is it that your dog does well with children?', choices=[(1, "1 - not very important"), (2,"2"), (3, "3"), (4, "4"), (5, "5 - requirement, exclude dogs that do not meet this criteria")], description="Things to consider: for many dogs it is unknown how they do with children - if you choose 5 you might miss out on some dogs that may otherwise be a perfect fit.") 
+  good_with_dogs = BooleanField(label='Good With Other Dogs', default=False, description="Do you need your dog to do well with other dogs? If yes, set to checked. Things to consider: your own household, family and friends with dogs, future plans to have more dogs, possibility of future partners or roommates with dogs, plans to take dog to off-leash parks")
+  dogs_priority = RadioField(label='How important is it that your dog does well with other dogs?', choices=[(1, "1 - not very important"), (2,"2"), (3, "3"), (4, "4"), (5, "5 - requirement, exclude dogs that do not meet this criteria")], description="Things to consider: for some dogs it is unknown how they do with other dogs - if you choose 5 you might miss out on some dogs that may otherwise be a perfect fit.") 
+  good_with_cats = BooleanField(label='Good With Cats', default=False, description="Do you need your dog to do well with cats? If yes, set to checked. Things to consider: your own household, future plans to have cats, possibility of future partners or roommates with cats")
+  cats_priority = RadioField(label='How important is it that your dog does well with cats?', choices=[(1, "1 - not very important"), (2,"2"), (3, "3"), (4, "4"), (5, "5 - requirement, exclude dogs that do not meet this criteria")], description="Things to consider: for many dogs it is unknown how they do with cats - if you choose 5 you might miss out on some dogs that may otherwise be a perfect fit.")
+  house_trained = BooleanField(label='House-trained', default=False, description="Do you need your dog to already be house-trained / potty-trained? If yes, set to checked. Things to consider: your tolerance for mess, the time and energy required to train a dog to go outside")
+  house_trained_priority = RadioField(label='How important is it that your dog is already house-trained?', choices=[(1, "1 - not very important"), (2,"2"), (3, "3"), (4, "4"), (5, "5 - requirement, exclude dogs that do not meet this criteria")], description="Things to consider: for some dogs this information is unknown - if you choose 5 you might miss out on some dogs that may otherwise be a perfect fit.") 
+  sex = SelectField(label='Sex Preference', choices=['No Preference', 'Male', 'Female'], default='No Preference', description="Things to consider: propensity for marking (peeing on things) or humping, unaltered female dogs will bleed and go into heat about every 6 months, preference of other dogs in your household - some dogs do not get along very well with dogs of a certain sex")
+  sex_priority = RadioField(label="How important is it that your dog is the sex selected above?", choices=[(1, "1 - not very important"), (2,"2"), (3, "3"), (4, "4"), (5, "5 - requirement, exclude dogs that do not meet this criteria")], description='Things to consider: gender differences between dogs are not huge, especially if the dog is "fixed" or altered - if you choose 5 you might miss out on dogs that may otherwise be a perfect fit.')
+  barking_min = IntegerField(label='Min barking level', validators=[NumberRange(min=0, max=5)], default=0)
+  barking_max = IntegerField(label="Max barking level", validators=[NumberRange(min=0, max=5)], default=5, description="How much barking can you tolerate from your dog? Input a range where 0 is the least vocal and 5 is the most vocal. Things to consider: home type or proximity of neighbors, sound sensitivity of household members, amount of activity the dog could see out your windows, future plans to live in an apartment or in close proximity to neighbors" )
+  energy_min = IntegerField(label="Min energy level", validators=[NumberRange(min=0, max=5)], description="", default=0)
+  energy_max = IntegerField(label="Max energy level", validators=[NumberRange(min=0, max=5)], default=5, description="How much energy would you prefer your dog have? Input the range of energy levels that you would accept, where 0 is least energetic and 5 is most energetic. \n \n Things to consider:  \n your own physical activity level, how much time you can commit to exercising a dog, how long you plan to leave the dog alone during the day, if you have a yard your dog can run around in, the cost of hiring someone else to exercise your dog (walking, daycare services), how much enrichment you plan to provide for your dog - dogs with more energy may be more likely to get into trouble if they get bored" )
+  protectiveness_min = IntegerField(label="Min protectiveness level", validators=[NumberRange(min=0, max=5)], default=0)
+  protectiveness_max = IntegerField(label="Max protectiveness level",  validators=[NumberRange(min=0, max=5)], default=5,  description=" This is how likely a dog is to alert strangers. How protective would you prefer your dog be? Input a range of levels that are acceptable to you, where 0 is the least protective and 5 is the most protective. \n\n Things to consider: \n how often strangers or new people will be in your home, how quickly you would like to bond with your dog, how often the dog will need to be boarded or have a pet-sitter, the safety of your neighborhood and your need to feel protected by the dog")
+  shedding_min = IntegerField(label="Min shedding level", validators=[NumberRange(min=0, max=5)], default=0)
+  shedding_max = IntegerField(label="Max shedding level", validators=[NumberRange(min=0, max=5)], default=5, description="How much hair would you prefer your dog to shed? Input a range of levels that are acceptable to you, where 0 is the least shedding and 5 is the most shedding. \n\n Things to consider: \n how clean you want your home and clothes to be, how often you vaccuum, allergies of those in your household, allergies of friends and family that may visit, the time commitment and monetary cost of grooming - dogs that don't shed often need regular haircuts and grooming")
+  trainability_min = IntegerField(label="Min trainability", validators=[NumberRange(min=0, max=5)], default=0)
+  trainability_max = IntegerField(label="Max trainability", validators=[NumberRange(min=0, max=5)], default=5, description="How easy to train would you prefer your dog be? Input a range of levels that are acceptable to you, where 0 is very difficult to train and 5 is very easy to train. \n\n Things to consider: \n how much training you plan to do with your dog, your training experience level, the time commitment of training, how long you plan to leave the dog alone during the day, the cost of hiring a trainer, your tolerance for frustration, how much enrichment you plan to provide for your dog - dogs that train easily are often very intelligent and may get into trouble if they get bored")
+  submit_button = SubmitField('Submit Form')

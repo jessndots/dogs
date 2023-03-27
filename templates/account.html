@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 
+Account
+{% endblock %}
+
+{% block content %}
+<div class="container-md p-5">
+  <h1>Account Details</h1>
+  <p><strong>First Name: </strong> {{user.first_name}}</p>
+  <p><strong>Last Name: </strong> {{user.last_name}}</p>
+  <p><strong>Email: </strong> {{user.email}}</p>
+
+  <a href="/account/edit" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Edit Account</a>
+</div>
+{% endblock %}
