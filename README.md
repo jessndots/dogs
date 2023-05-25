@@ -1,5 +1,5 @@
 
-# PodJot
+# MuttMatch
 
 A flask web-app for finding the most compatible dogs to adopt.
 
